@@ -19,12 +19,11 @@ import java.io.File;
 import java.io.PrintStream;
 import java.util.*;
 
-
 @Mojo(name = "generate-transport-api")
 @SuppressWarnings("unused")
 public class TransportPlugin extends AbstractMojo {
 
-    private static HashMap<String, String> primToClass = new HashMap<>();
+    private static HashMap<String, String> PRIMITIVE_TO_CLASS = new HashMap<>();
     private static String API_ANNOTATION_NAME = "Api";
     private static String API_CLIENT_ANNOTATION_NAME = "ApiClient";
     private static String API_ANNOTATION_PACKAGE = "com.transport.lib.zeromq";
@@ -37,28 +36,25 @@ public class TransportPlugin extends AbstractMojo {
     private static String REQUEST_INTERFACE_FULL = REQUEST_INTERFACE_PACKAGE + "." +  REQUEST_INTERFACE_NAME;
 
     static {
-        primToClass.put("int", "Integer");
-        primToClass.put("void", "Void");
-        primToClass.put("byte", "Byte");
-        primToClass.put("boolean", "Boolean");
-        primToClass.put("long", "Long");
-        primToClass.put("double", "Double");
-        primToClass.put("float", "Float");
-        primToClass.put("short", "Short");
-        primToClass.put("char", "Character");
+        PRIMITIVE_TO_CLASS.put("int", "Integer");
+        PRIMITIVE_TO_CLASS.put("void", "Void");
+        PRIMITIVE_TO_CLASS.put("byte", "Byte");
+        PRIMITIVE_TO_CLASS.put("boolean", "Boolean");
+        PRIMITIVE_TO_CLASS.put("long", "Long");
+        PRIMITIVE_TO_CLASS.put("double", "Double");
+        PRIMITIVE_TO_CLASS.put("float", "Float");
+        PRIMITIVE_TO_CLASS.put("short", "Short");
+        PRIMITIVE_TO_CLASS.put("char", "Character");
     }
 
     @Parameter(property = "root-path",defaultValue = "src/main/java/")
     private String root;
 
-
     public void execute() throws MojoExecutionException {
         try{
             File rootFolder = new File(root);
-            if(!rootFolder.exists())
-                throw new IllegalArgumentException("Root " + root + " doesn't exist");
-            if(!rootFolder.isDirectory())
-                throw new IllegalArgumentException("Root " + root + " is not a folder");
+            if(!rootFolder.exists()) throw new IllegalArgumentException("Root " + root + " doesn't exist");
+            if(!rootFolder.isDirectory()) throw new IllegalArgumentException("Root " + root + " is not a folder");
             processFolder(rootFolder, getLog());
         }catch (Exception e){
             throw new MojoExecutionException("Error during transport api generation: ", e);
@@ -68,7 +64,6 @@ public class TransportPlugin extends AbstractMojo {
 
     private static void processFolder(File folder, Log log) throws Exception{
         File[] classes = folder.listFiles((file, name) -> name.endsWith(JAVA_EXTENSION));
-
         if(classes != null){
             for(File clazz : classes){
                 CompilationUnit cu = JavaParser.parse(clazz);
@@ -87,15 +82,11 @@ public class TransportPlugin extends AbstractMojo {
                             cu.accept(new ImportVisitor(), null);
                             ImportDeclaration id = new ImportDeclaration(REQUEST_INTERFACE_FULL, false, false);
                             List<ImportDeclaration> idList = new ArrayList<>();
-                            if(cu.getImports()!=null) {
-                                idList.addAll(cu.getImports());
-                            }
-                            if(!idList.contains(id))
-                                cu.addImport(id);
+                            if(cu.getImports()!=null) idList.addAll(cu.getImports());
+                            if(!idList.contains(id)) cu.addImport(id);
                             File result = new File(folder, classOrInterfaceDeclaration.getName() + JAVA_EXTENSION);
                             boolean created = result.createNewFile();
-                            if(!created)
-                                log.info("File " + classOrInterfaceDeclaration.getName() + JAVA_EXTENSION + " updated");
+                            if(!created) log.info("File " + classOrInterfaceDeclaration.getName() + JAVA_EXTENSION + " updated");
                             PrintStream stream = new PrintStream(result, "UTF-8");
                             stream.println(cu.toString());
                         }
@@ -105,7 +96,6 @@ public class TransportPlugin extends AbstractMojo {
         }
 
         File[] directories = folder.listFiles(File::isDirectory);
-
         if(directories != null){
             for (File directory : directories){
                 processFolder(directory, log);
@@ -120,8 +110,8 @@ public class TransportPlugin extends AbstractMojo {
             if(n.getModifiers().contains(Modifier.STATIC) || n.getModifiers().contains(Modifier.DEFAULT)) {
                 return null;
             }
-            if(primToClass.containsKey(n.getType().asString())){
-                n.setType(REQUEST_INTERFACE_NAME + "<" +  primToClass.get(n.getType().asString())+ ">");
+            if(PRIMITIVE_TO_CLASS.containsKey(n.getType().asString())){
+                n.setType(REQUEST_INTERFACE_NAME + "<" +  PRIMITIVE_TO_CLASS.get(n.getType().asString())+ ">");
             }else{
                 n.setType(REQUEST_INTERFACE_NAME + "<" +  n.getType()+ ">");
             }
@@ -132,7 +122,6 @@ public class TransportPlugin extends AbstractMojo {
     private  static class FieldVisitor extends ModifierVisitor<Void> {
         @Override
         public Node visit(VariableDeclarator declarator, Void args) {
-
             return null;
         }
     }
@@ -140,8 +129,7 @@ public class TransportPlugin extends AbstractMojo {
     public static class ImportVisitor extends ModifierVisitor<Void> {
         @Override
         public Node visit(ImportDeclaration im, Void arg) {
-            if(im.getName().asString().equals(API_ANNOTATION_FULL))
-                im.setName(API_CLIENT_ANNOTATION_FULL);
+            if(im.getName().asString().equals(API_ANNOTATION_FULL)) im.setName(API_CLIENT_ANNOTATION_FULL);
             return im;
         }
     }
