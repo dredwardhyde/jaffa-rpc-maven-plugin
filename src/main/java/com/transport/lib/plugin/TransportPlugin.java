@@ -26,13 +26,13 @@ public class TransportPlugin extends AbstractMojo {
     private static HashMap<String, String> PRIMITIVE_TO_CLASS = new HashMap<>();
     private static String API_ANNOTATION_NAME = "Api";
     private static String API_CLIENT_ANNOTATION_NAME = "ApiClient";
-    private static String API_ANNOTATION_PACKAGE = "com.transport.lib.zeromq";
-    private static String API_CLIENT_ANNOTATION_PACKAGE = "com.transport.lib.zeromq";
+    private static String API_ANNOTATION_PACKAGE = "com.transport.lib.common";
+    private static String API_CLIENT_ANNOTATION_PACKAGE = "com.transport.lib.common";
     private static String API_ANNOTATION_FULL = API_ANNOTATION_PACKAGE + "." + API_ANNOTATION_NAME;
     private static String API_CLIENT_ANNOTATION_FULL = API_CLIENT_ANNOTATION_PACKAGE + "." + API_CLIENT_ANNOTATION_NAME;
     private static String JAVA_EXTENSION = ".java";
     private static String REQUEST_INTERFACE_NAME = "RequestInterface";
-    private static String REQUEST_INTERFACE_PACKAGE = "com.transport.lib.zeromq";
+    private static String REQUEST_INTERFACE_PACKAGE = "com.transport.lib.common";
     private static String REQUEST_INTERFACE_FULL = REQUEST_INTERFACE_PACKAGE + "." +  REQUEST_INTERFACE_NAME;
 
     static {
