@@ -23,17 +23,17 @@ import java.util.*;
 @SuppressWarnings("unused")
 public class TransportPlugin extends AbstractMojo {
 
-    private static HashMap<String, String> PRIMITIVE_TO_CLASS = new HashMap<>();
-    private static String API_ANNOTATION_NAME = "Api";
-    private static String API_CLIENT_ANNOTATION_NAME = "ApiClient";
-    private static String API_ANNOTATION_PACKAGE = "com.transport.lib.common";
-    private static String API_CLIENT_ANNOTATION_PACKAGE = "com.transport.lib.common";
-    private static String API_ANNOTATION_FULL = API_ANNOTATION_PACKAGE + "." + API_ANNOTATION_NAME;
-    private static String API_CLIENT_ANNOTATION_FULL = API_CLIENT_ANNOTATION_PACKAGE + "." + API_CLIENT_ANNOTATION_NAME;
-    private static String JAVA_EXTENSION = ".java";
-    private static String REQUEST_INTERFACE_NAME = "RequestInterface";
-    private static String REQUEST_INTERFACE_PACKAGE = "com.transport.lib.common";
-    private static String REQUEST_INTERFACE_FULL = REQUEST_INTERFACE_PACKAGE + "." +  REQUEST_INTERFACE_NAME;
+    private static final HashMap<String, String> PRIMITIVE_TO_CLASS = new HashMap<>();
+    private static final String API_ANNOTATION_NAME = "Api";
+    private static final String API_CLIENT_ANNOTATION_NAME = "ApiClient";
+    private static final String API_ANNOTATION_PACKAGE = "com.transport.lib.common";
+    private static final String API_CLIENT_ANNOTATION_PACKAGE = "com.transport.lib.common";
+    private static final String API_ANNOTATION_FULL = API_ANNOTATION_PACKAGE + "." + API_ANNOTATION_NAME;
+    private static final String API_CLIENT_ANNOTATION_FULL = API_CLIENT_ANNOTATION_PACKAGE + "." + API_CLIENT_ANNOTATION_NAME;
+    private static final String JAVA_EXTENSION = ".java";
+    private static final String REQUEST_INTERFACE_NAME = "RequestInterface";
+    private static final String REQUEST_INTERFACE_PACKAGE = "com.transport.lib.common";
+    private static final String REQUEST_INTERFACE_FULL = REQUEST_INTERFACE_PACKAGE + "." +  REQUEST_INTERFACE_NAME;
 
     static {
         PRIMITIVE_TO_CLASS.put("int", "Integer");
@@ -87,8 +87,9 @@ public class TransportPlugin extends AbstractMojo {
                             File result = new File(folder, classOrInterfaceDeclaration.getName() + JAVA_EXTENSION);
                             boolean created = result.createNewFile();
                             if(!created) log.info("File " + classOrInterfaceDeclaration.getName() + JAVA_EXTENSION + " updated");
-                            PrintStream stream = new PrintStream(result, "UTF-8");
-                            stream.println(cu.toString());
+                            try (PrintStream stream = new PrintStream(result, "UTF-8")) {
+                                stream.println(cu.toString());
+                            }
                         }
                     }
                 }
