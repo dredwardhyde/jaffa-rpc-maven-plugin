@@ -17,7 +17,7 @@ To turn of interface generation - disable corresponding maven profile (like "gen
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>com.komesergey</groupId>
+                        <groupId>com.edwardhyde</groupId>
                         <artifactId>transport-maven-plugin</artifactId>
                         <version>1.0-SNAPSHOT</version>
                         <configuration>
@@ -26,7 +26,6 @@ To turn of interface generation - disable corresponding maven profile (like "gen
                         </configuration>
                         <executions>
                             <execution>
-                                <phase>validate</phase>
                                 <goals>
                                     <goal>generate-transport-api</goal>
                                 </goals>
