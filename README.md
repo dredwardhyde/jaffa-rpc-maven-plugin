@@ -1,10 +1,8 @@
 ## How to use transport-maven-plugin
 
 This plugin is a part of transport library project and supposed to 
-create transport client interfaces during maven validation phase.
-It uses **JavaParser** library.
-
-To turn of interface generation - disable corresponding maven profile (like "generate-transport-api" in example below)
+create transport client interfaces.  
+To turn off source generation - disable corresponding maven profile (like "generate-transport-api" in example below):
 
 ```
 <properties>
