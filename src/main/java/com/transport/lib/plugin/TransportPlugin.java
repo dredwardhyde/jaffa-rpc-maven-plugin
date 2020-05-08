@@ -38,6 +38,7 @@ public class TransportPlugin extends AbstractMojo {
     private static final String JAVA_EXTENSION = ".java";
     private static final String REQUEST_INTERFACE_NAME = "Request";
     private static final String REQUEST_INTERFACE_PACKAGE = "com.transport.lib.request";
+    private static final String CLIENT_INTERFACE_SUFFIX = "Client";
     private static final String REQUEST_INTERFACE_FULL = REQUEST_INTERFACE_PACKAGE + "." + REQUEST_INTERFACE_NAME;
 
     static {
@@ -69,7 +70,7 @@ public class TransportPlugin extends AbstractMojo {
                         if (annotationExpr.isPresent()) {
                             log.info("Processing " + classOrInterfaceDeclaration.getName() + JAVA_EXTENSION);
                             annotationExpr.get().setName(API_CLIENT_ANNOTATION_NAME);
-                            classOrInterfaceDeclaration.setName(classOrInterfaceDeclaration.getName() + "Transport");
+                            classOrInterfaceDeclaration.setName(classOrInterfaceDeclaration.getName() + CLIENT_INTERFACE_SUFFIX);
                             cu.accept(new FieldVisitor(), null);
                             cu.accept(new MethodVisitor(), null);
                             cu.accept(new ImportVisitor(), null);
@@ -113,7 +114,6 @@ public class TransportPlugin extends AbstractMojo {
     private static class MethodVisitor extends ModifierVisitor<Void> {
         @Override
         public Node visit(MethodDeclaration n, Void arg) {
-
             if (n.getModifiers().contains(Modifier.STATIC) || n.getModifiers().contains(Modifier.DEFAULT)) {
                 return null;
             }
