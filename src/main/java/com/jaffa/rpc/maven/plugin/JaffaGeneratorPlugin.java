@@ -12,6 +12,7 @@ import com.github.javaparser.ast.expr.AnnotationExpr;
 import com.github.javaparser.ast.visitor.ModifierVisitor;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
@@ -99,16 +100,16 @@ public class JaffaGeneratorPlugin extends AbstractMojo {
         }
     }
 
-    public void execute() throws MojoExecutionException {
+    @Override
+    public void execute() throws MojoExecutionException, MojoFailureException {
         try {
             File rootFolder = new File(root);
             if (!rootFolder.exists()) throw new IllegalArgumentException("Root " + root + " doesn't exist");
             if (!rootFolder.isDirectory()) throw new IllegalArgumentException("Root " + root + " is not a folder");
             processFolder(rootFolder, getLog());
         } catch (Exception e) {
-            throw new MojoExecutionException("Error during transport api generation: ", e);
+            throw new MojoExecutionException("Error during RPC client generation: ", e);
         }
-
     }
 
     private static class MethodVisitor extends ModifierVisitor<Void> {
