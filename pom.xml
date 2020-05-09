@@ -2,10 +2,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.edwardhyde</groupId>
-    <artifactId>transport-maven-plugin</artifactId>
+    <artifactId>jaffa-rpc-maven-plugin</artifactId>
     <packaging>maven-plugin</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>Transport Maven Plugin</name>
+    <name>Jaffa RPC Maven Plugin</name>
     <url>http://maven.apache.org</url>
     <dependencies>
         <dependency>

@@ -1,4 +1,4 @@
-package com.transport.lib.plugin;
+package com.jaffa.rpc.maven.plugin;
 
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ast.CompilationUnit;
@@ -24,20 +24,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
-@Mojo(name = "generate-transport-api", defaultPhase = LifecyclePhase.GENERATE_SOURCES)
+@Mojo(name = "generate-client-api", defaultPhase = LifecyclePhase.GENERATE_SOURCES)
 @SuppressWarnings("unused")
-public class TransportPlugin extends AbstractMojo {
+public class JaffaGeneratorPlugin extends AbstractMojo {
 
     private static final HashMap<String, String> PRIMITIVE_TO_CLASS = new HashMap<>();
     private static final String API_ANNOTATION_NAME = "Api";
     private static final String API_CLIENT_ANNOTATION_NAME = "ApiClient";
-    private static final String API_ANNOTATION_PACKAGE = "com.transport.lib.annotations";
-    private static final String API_CLIENT_ANNOTATION_PACKAGE = "com.transport.lib.annotations";
+    private static final String API_ANNOTATION_PACKAGE = "com.jaffa.rpc.lib.annotations";
+    private static final String API_CLIENT_ANNOTATION_PACKAGE = "com.jaffa.rpc.lib.annotations";
     private static final String API_ANNOTATION_FULL = API_ANNOTATION_PACKAGE + "." + API_ANNOTATION_NAME;
     private static final String API_CLIENT_ANNOTATION_FULL = API_CLIENT_ANNOTATION_PACKAGE + "." + API_CLIENT_ANNOTATION_NAME;
     private static final String JAVA_EXTENSION = ".java";
     private static final String REQUEST_INTERFACE_NAME = "Request";
-    private static final String REQUEST_INTERFACE_PACKAGE = "com.transport.lib.request";
+    private static final String REQUEST_INTERFACE_PACKAGE = "com.jaffa.rpc.lib.request";
     private static final String CLIENT_INTERFACE_SUFFIX = "Client";
     private static final String REQUEST_INTERFACE_FULL = REQUEST_INTERFACE_PACKAGE + "." + REQUEST_INTERFACE_NAME;
 
