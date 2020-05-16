@@ -12,7 +12,6 @@ import com.github.javaparser.ast.expr.AnnotationExpr;
 import com.github.javaparser.ast.visitor.ModifierVisitor;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
@@ -26,7 +25,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Mojo(name = "generate-client-api", defaultPhase = LifecyclePhase.GENERATE_SOURCES)
-@SuppressWarnings("unused")
+@SuppressWarnings({"squid:S3776", "unused"})
 public class JaffaGeneratorPlugin extends AbstractMojo {
 
     private static final HashMap<String, String> PRIMITIVE_TO_CLASS = new HashMap<>();
@@ -101,7 +100,7 @@ public class JaffaGeneratorPlugin extends AbstractMojo {
     }
 
     @Override
-    public void execute() throws MojoExecutionException, MojoFailureException {
+    public void execute() throws MojoExecutionException {
         try {
             File rootFolder = new File(root);
             if (!rootFolder.exists()) throw new IllegalArgumentException("Root " + root + " doesn't exist");
