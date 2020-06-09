@@ -7,8 +7,9 @@
     <packaging>maven-plugin</packaging>
     <version>1.0</version>
     <name>Jaffa RPC Maven Plugin</name>
+    <description>Maven plugin for Jaffa RPC library</description>
     <url>https://github.com/dredwardhyde/jaffa-rpc-maven-plugin</url>
-
+    <inceptionYear>2019</inceptionYear>
     <properties>
         <java.version>1.8</java.version>
         <junit.version>4.13</junit.version>
@@ -26,9 +27,34 @@
         </license>
     </licenses>
 
+    <developers>
+        <developer>
+            <id>dredwardhyde</id>
+            <name>Nikita L</name>
+            <email>komesergey@gmail.com</email>
+            <roles>
+                <role>owner</role>
+                <role>developer</role>
+            </roles>
+        </developer>
+    </developers>
+
     <scm>
-        <url>https://github.com/dredwardhyde/jaffa-rpc-maven-plugin.git</url>
+        <connection>scm:git:git://github.com/dredwardhyde/jaffa-rpc-maven-plugin.git</connection>
+        <developerConnection>scm:git:ssh://github.com/dredwardhyde/jaffa-rpc-maven-plugin.git</developerConnection>
+        <url>https://github.com/dredwardhyde/jaffa-rpc-maven-plugin/tree/master</url>
     </scm>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
 
     <dependencies>
         <dependency>
@@ -68,6 +94,63 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                        <configuration>
+                            <gpgArguments>
+                                <arg>--pinentry-mode</arg>
+                                <arg>loopback</arg>
+                            </gpgArguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.7</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
             </plugin>
         </plugins>
