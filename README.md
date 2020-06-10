@@ -3,7 +3,7 @@
 
 ## How to use jaffa-rpc-maven-plugin
 
-This plugin is a part of Jaffa RPC library project and supposed to create client interfaces.  
+This maven plugin is a part of [Jaffa RPC library](https://github.com/dredwardhyde/jaffa-rpc-library) project and supposed to create client interfaces.  
 To turn off sources generation - disable corresponding maven profile (like "generate-client-api" in example below):
 
 ```
