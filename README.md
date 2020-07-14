@@ -1,5 +1,6 @@
 [![License](http://img.shields.io/:license-apache-brightgreen.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.dredwardhyde/jaffa-rpc-maven-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.dredwardhyde/jaffa-rpc-maven-plugin)
+[![javadoc](https://javadoc.io/badge2/com.github.dredwardhyde/jaffa-rpc-maven-plugin/javadoc.svg)](https://javadoc.io/doc/com.github.dredwardhyde/jaffa-rpc-maven-plugin)
 
 ## How to use jaffa-rpc-maven-plugin
 
