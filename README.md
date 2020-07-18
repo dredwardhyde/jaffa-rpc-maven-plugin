@@ -1,3 +1,4 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/bfa0c04380ff44c69c51550add0f3116)](https://app.codacy.com/manual/dredwardhyde/jaffa-rpc-maven-plugin?utm_source=github.com&utm_medium=referral&utm_content=dredwardhyde/jaffa-rpc-maven-plugin&utm_campaign=Badge_Grade_Dashboard)
 [![License](http://img.shields.io/:license-apache-brightgreen.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.dredwardhyde/jaffa-rpc-maven-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.dredwardhyde/jaffa-rpc-maven-plugin)
 [![javadoc](https://javadoc.io/badge2/com.github.dredwardhyde/jaffa-rpc-maven-plugin/javadoc.svg)](https://javadoc.io/doc/com.github.dredwardhyde/jaffa-rpc-maven-plugin)
