@@ -22,7 +22,7 @@ To turn off sources generation - disable corresponding maven profile (like "gene
                     <plugin>
                         <groupId>com.github.dredwardhyde</groupId>
                         <artifactId>jaffa-rpc-maven-plugin</artifactId>
-                        <version>1.0</version>
+                        <version>1.1/version>
                         <configuration>
                             <root-path>${root-path}</root-path>
                         </configuration>
