@@ -1,6 +1,6 @@
 package com.jaffa.rpc.maven.plugin;
 
-import com.github.javaparser.JavaParser;
+import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.ImportDeclaration;
 import com.github.javaparser.ast.Modifier;
@@ -60,7 +60,7 @@ public class JaffaGeneratorPlugin extends AbstractMojo {
         File[] classes = folder.listFiles((file, name) -> name.endsWith(JAVA_EXTENSION));
         if (classes != null) {
             for (File clazz : classes) {
-                CompilationUnit cu = JavaParser.parse(clazz);
+                CompilationUnit cu = StaticJavaParser.parse(clazz);
                 Optional<String> mainClass = cu.getPrimaryTypeName();
                 if (mainClass.isPresent()) {
                     Optional<ClassOrInterfaceDeclaration> cl = cu.getInterfaceByName(mainClass.get());
@@ -114,7 +114,7 @@ public class JaffaGeneratorPlugin extends AbstractMojo {
     private static class MethodVisitor extends ModifierVisitor<Void> {
         @Override
         public Node visit(MethodDeclaration n, Void arg) {
-            if (n.getModifiers().contains(Modifier.STATIC) || n.getModifiers().contains(Modifier.DEFAULT)) {
+            if (n.getModifiers().contains(Modifier.staticModifier()) || n.getModifiers().contains(new Modifier(Modifier.Keyword.DEFAULT))) {
                 return null;
             }
             if (PRIMITIVE_TO_CLASS.containsKey(n.getType().asString())) {
