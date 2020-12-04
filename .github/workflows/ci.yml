@@ -20,11 +20,11 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       - name: Build with Maven
-        run: mvn clean install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V -l ./build.log
+        run: mvn clean install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V -l build-jdk-8.log
       - uses: actions/upload-artifact@v2
         with:
-          name: build-logs-jdk8
-          path: ./buiild.log
+          name: build-jdk-8.log
+          path: ${{ github.workspace }}
   jdk11:
     name: JDK 11 build
     runs-on: ubuntu-latest
@@ -42,8 +42,8 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       - name: Build with Maven
-        run: mvn clean install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V -l ./build.log
+        run: mvn clean install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V -l build-jdk-11.log
       - uses: actions/upload-artifact@v2
         with:
-          name: build-logs-jdk11
-          path: ./buiild.log
+          name: build-jdk-11.log
+          path: ${{ github.workspace }}
