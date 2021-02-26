@@ -9,7 +9,7 @@
 This maven plugin is a part of [Jaffa RPC library](https://github.com/dredwardhyde/jaffa-rpc-library) project and supposed to create client interfaces.  
 To turn off sources generation - disable corresponding maven profile (like "generate-client-api" in example below):
 
-```
+```xml
 <properties>
     <root-path>src/main/java/</root-path>
 </properties>
